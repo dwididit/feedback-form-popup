@@ -37,7 +37,7 @@ This project is a Python-based RESTful application that allows users to submit, 
 1. **Clone the repository using GitHub CLI**:
     ```bash
     gh repo clone dwididit/feedback-form-popup
-    cd feedback-form-popup
+    cd feedback-form-popup/
     ```
 
 2. **Create a `.env` file and configure your environment variables**:

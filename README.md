@@ -192,9 +192,9 @@ python -m unittest test_main.py
     }
     ```
 
-### Update Feedback
-- Endpoint: PUT /feedback/{feedback_id}
-- Description: Updates an existing feedback entry by ID.
+### Delete Feedback
+- Endpoint: DELETE /feedback/{feedback_id}
+- Description: Delete an existing feedback entry by ID.
 - Response(Success)
 ```json
 {

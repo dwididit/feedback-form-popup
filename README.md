@@ -59,6 +59,11 @@ This project is a Python-based RESTful application that allows users to submit, 
     docker compose up -d
     ```
 
+4. **Run migrations manually**
+    ```bash
+    docker-compose exec fastapi-app alembic upgrade head
+    ```
+
 The application will run at: http://localhost:8000
 
 To see the API endpoints using Swagger, visit: http://localhost:8000/docs

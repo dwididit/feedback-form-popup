@@ -1,7 +1,7 @@
 import asyncio
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config, pool
-from sqlalchemy.ext.asyncio import AsyncEngine
+from sqlalchemy import pool
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from alembic import context
 import sys
 import os
@@ -14,7 +14,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 config = context.config
 
-# Ensure that DATABASE_URL is set in the environment
 database_url = os.getenv('DATABASE_URL')
 if not database_url:
     raise ValueError("DATABASE_URL environment variable not set")
@@ -23,13 +22,23 @@ config.set_main_option('sqlalchemy.url', database_url)
 
 fileConfig(config.config_file_name)
 
-# Import your Base model from main
+# Import your Base model from the main application
 from main import Base
 
+# Add your model's MetaData object here for 'autogenerate' support.
 target_metadata = Base.metadata
 
 def run_migrations_offline():
-    """Run migrations in 'offline' mode."""
+    """Run migrations in 'offline' mode.
+
+    This configures the context with just a URL
+    and not an Engine, though an Engine is acceptable
+    here as well. By skipping the Engine creation
+    we don't even need a DBAPI to be available.
+
+    Calls to context.execute() here emit the given string to the
+    script output.
+    """
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
@@ -51,13 +60,15 @@ def do_run_migrations(connection):
         context.run_migrations()
 
 async def run_migrations_online():
-    """Run migrations in 'online' mode."""
-    connectable = AsyncEngine(
-        engine_from_config(
-            config.get_section(config.config_ini_section),
-            prefix="sqlalchemy.",
-            poolclass=pool.NullPool,
-        )
+    """Run migrations in 'online' mode.
+
+    In this scenario we need to create an Engine
+    and associate a connection with the context.
+    """
+    connectable = create_async_engine(
+        config.get_main_option("sqlalchemy.url"),
+        future=True,
+        poolclass=pool.NullPool,
     )
 
     async with connectable.connect() as connection:

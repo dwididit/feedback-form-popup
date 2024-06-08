@@ -48,9 +48,9 @@ This project is a Python-based RESTful application that allows users to submit, 
    
    TEST_DATABASE_URL=postgresql+asyncpg://postgres:password@localhost/test_feedback_form
    
-   POSTGRES_USER=feedback_form
+   POSTGRES_USER=postgres
    POSTGRES_PASSWORD=postgres
-   POSTGRES_DB=postgres
+   POSTGRES_DB=feedback_form
    ```
 
 3. **Build and run the application using Docker Compose**:

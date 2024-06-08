@@ -55,7 +55,8 @@ This project is a Python-based RESTful application that allows users to submit, 
 
 3. **Build and run the application using Docker Compose**:
     ```bash
-    docker-compose up --build -d
+    docker compose build
+    docker compose up -d
     ```
 
 The application will run at: http://localhost:8000
